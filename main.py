@@ -15,6 +15,8 @@ def start_application():
     starting_screen = StartingScreen(root, start_main_application)
     root.mainloop()
 
+
+
 if __name__ == "__main__":
     start_application()
     
