@@ -1,0 +1,7 @@
+import yfinance as yf
+
+
+apple = yf.Ticker('AAPL')
+data = yf.download('META', period='5d',interval='1d')
+close_price = data['Close'][-2]
+print(close_price)
