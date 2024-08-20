@@ -1,0 +1,25 @@
+One big software
+
+Split into  
+  - Watchlist
+  - Portfolio Tracker
+  - Comparison
+
+Watchlist
+  - Add/Remove Stocks
+  - View Stocks
+  - View Stock Details
+  - View Stock Graph
+  - Add comments to stocks
+
+Portfolio Tracker
+  - Display current portfolio
+  - Automatically update stock prices
+  - When position closed -> gets logged in trading log
+  - View Trading Log
+  - View Stock Graph
+
+Comparison
+  - Compare multiple stocks
+  - Display stock comparison graphs 
+      - Compare spread,ratios,Non rebalanced index, Relative perfomance index
