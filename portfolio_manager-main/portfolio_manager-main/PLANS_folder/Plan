@@ -1,0 +1,38 @@
+Watchlist
+  - Add/Remove Stocks
+  - View Stocks
+  - View Stock Details
+  - View Stock Graph
+  - Add comments to stocks
+
+
+STEPS to create Watchlist:
+
+1. Create class for Watchlist
+2. Array to store Stocks
+3. Fetch Live data from Yfinance
+    - Fetch Price, Market Cap, Volume, Next EPS date, P/E,Beta,Exchange
+4. Present Live data
+    -Day-Day % change
+5. Add/Remove Stocks
+
+
+Portfolio Model
+  - create a database of stock positions
+      -ticker
+      -entry price
+      -postions
+
+  - Insert stock positions
+  - monitor proft/loss daily and since position opened
+  - monitor profit/loss of all positions
+  - monitor current liquidity balance
+  - monitor daily %change
+  - create a trading log with a history of all positions
+  
+  table for portfolio should present 
+  Ticker Price  Positions Daily %  daily p/l  P/l since position opened  beta
+  wE HAVE TO BE ABLE TO REBALANCE THE POSITIONS AND ADJUST ENTRY PRICE BASED ON THE WEIGHTING OF THE POSITION. 
+
+  
+
