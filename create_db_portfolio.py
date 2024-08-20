@@ -9,9 +9,9 @@ def create_db_portfolio():
     cursor.execute('''
                         CREATE TABLE IF NOT EXISTS portfolio (
                             id INTEGER PRIMARY KEY AUTOINCREMENT,
-                            stock_symbol TEXT NOT NULL UNIQUE,
+                            stock_symbol TEXT NOT NULL,
                             positions REAL NOT NULL,
-                            entry_price REAL NOT NULL
+                            entry_price REAL NOT NULL,
                             entry_date TEXT NOT NULL
                         )
                    ''')

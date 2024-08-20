@@ -2,12 +2,19 @@
 
 from model_v2 import Watchlist
 from view import WatchlistView
+from model_portfolio import Portfolio
+from view_portfolio import PortfolioView
+from model_portfolio import DatabaseManager
+from model_comparison import Comparison
+from view_comparison import ComparisonView
+
 
 class WatchlistController:
     def __init__(self, root):
         self.model = Watchlist()
         self.view = WatchlistView(root, self)
         self.view.pack()
+        print('WatchlistController initialized')
         self.fetch_and_update_data()
         
 
@@ -39,4 +46,30 @@ class WatchlistController:
 
 
 class PortfolioController:
-    pass
+    def __init__(self, root):
+        self.dbmanger = DatabaseManager('portfolio.db')
+        self.model = Portfolio(self.dbmanger)
+        self.view = PortfolioView(root, self)
+          # Ensure the controller is passed correctly
+        self.view.pack()
+        print('PortfolioController initialized')
+        self.view.port_update_view(self.model.get_portfolio_data())
+       
+    
+    def add_record_to_portfolio(self, ticker, positions, entry_price, entry_date):
+        self.model.add_port_stock(ticker, positions, entry_price, entry_date)
+        self.view.port_update_view(self.model.get_portfolio_data())
+
+    def remove_record_from_portfolio(self, ticker):
+        self.model.remove_stock(ticker)
+        self.view.port_update_view(self.model.get_portfolio_data())
+
+
+class ComparisonController:
+    def __init__(self,root):
+        self.model = Comparison()
+        self.view = ComparisonView(root, self)
+        self.view.pack()
+        print('ComparisonController initialized')
+        self.view.update_view(self.model.get_comparison_data())
+        

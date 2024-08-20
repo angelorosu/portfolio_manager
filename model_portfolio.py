@@ -36,13 +36,42 @@ class Portfolio:
 
     def load_portfolio_from_db(self):
         return self.db_manager.fetch_all('SELECT stock_symbol, positions, entry_price, entry_date FROM portfolio')
+    
+    def add_port_stock(self, ticker, positions, entry_price, entry_date):
+        try:
+            # Check if the stock already exists in the portfolio
+            existing_stock = self.db_manager.execute_query(
+                'SELECT positions, entry_price FROM portfolio WHERE stock_symbol = ?', (ticker,)
+            )
+            print('Existing stock found')
+            
+            if existing_stock:
+                # If the stock exists, retrieve current positions and entry price
+                existing_positions = existing_stock[0][0]
+                existing_entry_price = existing_stock[0][1]
 
-    def add_stock(self, ticker, positions, entry_price, entry_date):
-        self.db_manager.execute_query(
-            'INSERT OR IGNORE INTO portfolio (stock_symbol, positions, entry_price, entry_date) VALUES (?, ?, ?, ?)',
-            (ticker, positions, entry_price, entry_date)
-        )
-        self.portfolio = self.load_portfolio_from_db()
+                # Calculate the new total positions and new average entry price
+                total_positions = positions + existing_positions
+                new_entry_price = ((existing_positions * existing_entry_price) + (positions * entry_price)) / total_positions
+
+                self.db_manager.execute_query(
+                    'UPDATE portfolio SET positions = ?, entry_price = ?, entry_date = ? WHERE stock_symbol = ?',
+                    (total_positions, new_entry_price, entry_date, ticker)
+                )
+                print('updated new successfully')
+
+            else:
+                self.db_manager.execute_query(
+                    'INSERT INTO portfolio (stock_symbol, positions, entry_price, entry_date) VALUES (?, ?, ?, ?)',
+                    (ticker, positions, entry_price, entry_date)
+                )
+                print('added new successfully')
+
+
+            self.portfolio = self.load_portfolio_from_db()
+
+        except Exception as e:
+            print(f"An error occurred while adding stock to the portfolio: {e}")
 
     def remove_stock(self, ticker):
         self.db_manager.execute_query('DELETE FROM portfolio WHERE stock_symbol = ?', (ticker,))

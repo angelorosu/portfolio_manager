@@ -111,24 +111,7 @@ class WatchlistView(tk.Frame):
                 print("Unexpected format:", stock)
 
 
-class StartingScreen(tk.Toplevel):
-    def __init__(self, parent, on_start):
-        super().__init__(parent)
-        self.title("Starting Screen")
-        self.geometry("300x200")
-        self.on_start = on_start
 
-        # Displaying a label
-        self.label = tk.Label(self, text="Welcome to the Stocks Portfolio Manager", font=("Helvetica", 16))
-        self.label.pack(pady=20)
-
-        # Button to open the main application
-        self.start_button = tk.Button(self, text="Open Watchlist", command=self.open_main_application)
-        self.start_button.pack(pady=20)
-
-    def open_main_application(self):
-        self.destroy()  # Close the starting screen
-        self.on_start()  # Call the function to start the main application
 
 
 class Application(tk.Tk):
